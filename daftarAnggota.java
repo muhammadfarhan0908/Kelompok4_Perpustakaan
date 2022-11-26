@@ -19,8 +19,11 @@ import javax.swing.table.DefaultTableModel;
 public class daftarAnggota extends javax.swing.JFrame {
     Connection con = koneksi.koneksiDB();
     /**
-     * Creates new form daftarAnggota
+     * membuat form baru daftarAnggota
      */
+    //mengupload atau menambahkan data anggota
+    // catch dibuat untuk menangkap kesalahan atau bug yang terjadi dalam block try
+    //try dibuat untuk mendefinisikan block kode yang akan diuji untuk kesalahan yang akan di eksekusi
     void postData(){
         if(tf_nim.getText().isEmpty()||tf_namaAnggota.getText().isEmpty()||tf_jurusan.getText().isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "masih ada field kosong");
@@ -28,8 +31,8 @@ public class daftarAnggota extends javax.swing.JFrame {
             int nim = Integer.parseInt(tf_nim.getText());
             try {
                 String sql = "insert into user values (null,'"+tf_namaAnggota.getText()+"',"+nim+",'"+tf_jurusan.getText()+"')";
-                Statement st = con.createStatement();
-                st.execute(sql);
+                Statement st = con.createStatement  ();
+                st.execute(sql);  
                 JOptionPane.showMessageDialog(rootPane, "data berhasil di tambahkan");
                 tampilUser();
             } catch (SQLException ex) {
@@ -39,6 +42,7 @@ public class daftarAnggota extends javax.swing.JFrame {
         }
         
     }
+    //mencari data anggota
     void Search(){
         DefaultTableModel model = (DefaultTableModel)tbl_user.getModel();
 
@@ -64,12 +68,12 @@ public class daftarAnggota extends javax.swing.JFrame {
                
                     model.addRow(tbData);
                 }
-             
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(rootPane, e);
             }
         }
     }
+    //menampilkan user anggota
     void tampilUser(){
         DefaultTableModel model = (DefaultTableModel)tbl_user.getModel();
         int row = model.getRowCount();
@@ -108,7 +112,7 @@ public class daftarAnggota extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    // package yang digunakan adalah javax, swing untuk membuat GUI di java
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -129,7 +133,7 @@ public class daftarAnggota extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btn_tambah = new javax.swing.JButton();
-
+        // digunakan method set untuk mengubah
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(34, 45, 65));
@@ -141,7 +145,7 @@ public class daftarAnggota extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Ayo Baca Buku");
-
+        //dibuat btn untuk membuat interface tombol
         btn_daftar_buku.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 11)); // NOI18N
         btn_daftar_buku.setText("Daftar Buku");
         btn_daftar_buku.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +210,7 @@ public class daftarAnggota extends javax.swing.JFrame {
                 .addComponent(btn_tambahBuku)
                 .addGap(19, 19, 19))
         );
-
+        //jpanel dibuat untuk mengatur tata letak dari komponen lainnya
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -234,7 +238,7 @@ public class daftarAnggota extends javax.swing.JFrame {
                 btn_cariActionPerformed(evt);
             }
         });
-
+        //jlabel untuk membuat label untuk menampilkan teks menjadi beberapa baris serta dapat memberi warna berbeda pada sebagian teks
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Anggota Perpustakaan");
@@ -358,7 +362,7 @@ public class daftarAnggota extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+     //private void dibuat hanya untuk dapat diakses pada metode-metode pada kelas yang sama
     private void btn_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cariActionPerformed
         Search();
     }//GEN-LAST:event_btn_cariActionPerformed
@@ -396,6 +400,7 @@ public class daftarAnggota extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    //membuat public static void untuk menjalankan program
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -420,7 +425,7 @@ public class daftarAnggota extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* membuat dan menampilkan form*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new daftarAnggota().setVisible(true);
