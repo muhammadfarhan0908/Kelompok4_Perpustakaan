@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
- * @author Lenovo
+ * @author Kelompok 4
  */
 public class Peminjaman extends javax.swing.JFrame {
      int id = 0;
