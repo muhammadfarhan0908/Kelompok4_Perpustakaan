@@ -26,10 +26,12 @@ public class Peminjaman extends javax.swing.JFrame {
         tf_NamaBuku.setText(namaBuku);
         
     }
+     // Menghapus data
     void DeleteData(){
          String namaBuku=  tf_NamaBuku.getText();
          try {
              String sql = "delete from peminjaman where id_pinjam ='"+id+"'";
+              // Mengupdate jumlah buku 
              jumlahBuku++;
              String Update = "update buku set jumlah_buku='"+jumlahBuku+"' where nama_buku ='"+namaBuku+"'";
              Statement st = con.createStatement();
@@ -38,12 +40,14 @@ public class Peminjaman extends javax.swing.JFrame {
              st.executeUpdate(sql);
              st.executeUpdate(Update);
              JOptionPane.showMessageDialog(rootPane, "Data Berhasil Di hapus");
+              // Menampilkan data yang telah di hapus
              TampilkanData();
          } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex);
          }
         
     }
+     // Membuat data keseluruhan pada perpustakaan 
     void postData(){
        if(Tf_namaPeminjam.getText().isEmpty() || tf_NamaBuku.getText().isEmpty() ||tf_tahun.getText().isEmpty()){
            JOptionPane.showMessageDialog(rootPane, "isi Seluruh Field");
@@ -59,15 +63,19 @@ public class Peminjaman extends javax.swing.JFrame {
                 //check apakah buku ada dalam database
                 Statement st = con.createStatement();
                 
+                 // Mengecek nama anggota  dari user
                 ResultSet checkanggota = st.executeQuery(checkAnggota);
                 if(!checkanggota.next()){
                     JOptionPane.showMessageDialog(rootPane, "Anggota tidak ada");
                 }else{
+                     // mengecek nama buku dari user
                     ResultSet res = st.executeQuery(checkExist);
                     if(!res.next()){
                         JOptionPane.showMessageDialog(rootPane, "Buku tidak ada");
                     }else{
+                         // Mengecek nama,nama buku,tahun,bulan dan tanggal 
                         String sql = "INSERT INTO peminjaman VALUES (null,'"+nama+"','"+namaBuku+"',null,'"+tahun+"-"+bulan+"-"+tanggal+"')";
+                         // Mengecek total pinjaman buku dan jumlah buku yang di pinjam serta nama buku tersebut
                         String getCounter = "Select total_pinjam,jumlah_buku from buku where nama_buku = '"+namaBuku+"'";
                         ResultSet resTotal = st.executeQuery(getCounter);
                         if(resTotal.next()){
@@ -81,6 +89,7 @@ public class Peminjaman extends javax.swing.JFrame {
                                 st.execute(Counter);
                                 TampilkanData();
                             }else {
+                                 // Tampilan jika buku sudah habis 
                                 JOptionPane.showMessageDialog(rootPane, "mohon maaf buku yang anda pilih sudah habis");
                             }
                         }
@@ -93,6 +102,7 @@ public class Peminjaman extends javax.swing.JFrame {
             }
        }
     }
+     // Menampilkan data
     final void TampilkanData(){
         DefaultTableModel model = (DefaultTableModel)Tbl_pinjam.getModel();
         int row = Tbl_pinjam.getRowCount();
@@ -135,7 +145,7 @@ public class Peminjaman extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        // package yang di gunakan adalah javax.swing untuk membuat GUI di java
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -158,15 +168,15 @@ public class Peminjaman extends javax.swing.JFrame {
         btn_hapus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+    
         jPanel1.setBackground(new java.awt.Color(34, 45, 65));
-
+         // Mengubah data
         jPanel2.setBackground(new java.awt.Color(95, 210, 195));
 
         jLabel1.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Ayo Baca Buku");
-
+        // Di buat btn untuk membuat interface tombol
         btn_daftar_buku.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 11)); // NOI18N
         btn_daftar_buku.setText("Daftar Buku");
         btn_daftar_buku.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +208,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 btn_tambahBukuActionPerformed(evt);
             }
         });
-
+         // jpanel untuk mengatur tata letak dari komponen lainnya
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -231,7 +241,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 .addComponent(btn_tambahBuku)
                 .addGap(29, 29, 29))
         );
-
+          //membuat label untuk menampilkan teks menjadi beberapa baris serta dapat memberi warna berbeda pada sebagian teks
         jLabel2.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Peminjaman Buku");
@@ -285,7 +295,7 @@ public class Peminjaman extends javax.swing.JFrame {
                 btn_hapusActionPerformed(evt);
             }
         });
-
+          // jpanel  untuk mengatur tata letak dari komponen lainnya
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -371,6 +381,7 @@ public class Peminjaman extends javax.swing.JFrame {
     void CloseFrame(){
         super.dispose();
     }
+     // private void dibuat hanya untuk  dapat di akses pada metode2 dalam kelas yang sama
     private void btn_daftar_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_daftar_bukuActionPerformed
         daftarBuku buku = new daftarBuku();
         buku.setVisible(true);
@@ -417,12 +428,14 @@ public class Peminjaman extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+     // public static untuk menjalankan program
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+         //  try di buat untuk mendefinisikan blok kode yang akan diuji untuk kesalahan yang akan dieksekusi
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -430,6 +443,7 @@ public class Peminjaman extends javax.swing.JFrame {
                     break;
                 }
             }
+             // catch di buat untuk menangkap kesalahan atau bug yang terjadi dalam block try
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
