@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Lenovo
+ * @author Kelompok 4
  */
 public class daftarBuku extends javax.swing.JFrame {
 
