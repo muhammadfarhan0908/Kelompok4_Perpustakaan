@@ -23,31 +23,31 @@ public class daftarBuku extends javax.swing.JFrame {
      * Creates new form Login
      */
     void SearchByJenis(String jenis){
-        DefaultTableModel model = (DefaultTableModel)Tabel_cari.getModel();
-        int row = model.getRowCount();
+        DefaultTableModel model = (DefaultTableModel)Tabel_cari.getModel(); //mengambil model data dari tabel yang dimiliki
+        int row = model.getRowCount(); // menghitung baris data yang ada pada tabel
         for(int i = 0; i<row;i++){
-            model.removeRow(0);
+            model.removeRow(0); //menghapus data agar tidak double double 
         }
         if(tf_jenisBuku.getText().equals("")){
            SearchByName(tf_NamaBuku.getText());
         }else{
             SearchByName(tf_NamaBuku.getText());
             try{
-                String sql = "select * from buku  where jenis_buku ='"+jenis+"' order by total_pinjam desc";
+                String sql = "select * from buku  where jenis_buku ='"+jenis+"' order by total_pinjam desc"; //seleksi dan menampilkan jenis buku berdasarkan total pinjam
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost/perpustakaan","root","");
-                Statement st = koneksi.createStatement();
-                ResultSet res = st.executeQuery(sql);
+                Connection koneksi = DriverManager.getConnection("jdbc:mysql://localhost/perpustakaan","root",""); //membuat koneksi
+                Statement st = koneksi.createStatement(); //membuat statment query
+                ResultSet res = st.executeQuery(sql); //menjalankan query
 
                 while(res.next()){
                     String id_buku = res.getString("id_buku");
                     String nama_buku = res.getString("nama_buku");
                     String  jumlah_buku= res.getString("jumlah_buku");
                     String jenis_buku = res.getString("jenis_buku");
-                    String total = res.getString("total_pinjam");
-                    String tbData[] = {id_buku,nama_buku,jumlah_buku,jenis_buku,total};
+                    String total = res.getString("total_pinjam"); //mengambil data
+                    String tbData[] = {id_buku,nama_buku,jumlah_buku,jenis_buku,total}; //membuat area untuk data yang telah diambil
                  
-                    model.addRow(tbData);
+                    model.addRow(tbData); //menambahkan row pada model data sesuai dengan data yang telah diambil
             } 
             }catch(ClassNotFoundException | SQLException e){
                     JOptionPane.showMessageDialog(null, e);
